@@ -13,14 +13,15 @@ Produce videos of two trained racing policies flying in Isaac Sim, each frame sh
 - The recorder has never run on a live Isaac install (the pod it was written for is gone). Expect to fix small things: import paths, the tiled-camera key name, the skrl reset re-arm, imageio needing ffmpeg. Fix them in place, keep the fixes minimal, and commit them with a clear message. Do not rewrite the script.
 - Isaac's exit code is meaningless. The `RECORDED=` line printed by the recorder, and `SMOKE_RESULT=PASS` from the smoke test, are the results.
 - Do not touch anything to do with the drone, Betaflight, MSP, or the Code-Red-Cables/AI_GP repository. This task is simulation only.
-- The output the paper wants most is race40drop under the measured dropout (the ps1 runs it first); race40 with perfect corners is the comparison. A clip of race40drop completing several gates from the pad is the goal; if all three attempts crash early, say so rather than picking the best frames.
+- What I want is the best-looking footage of the policy flying: a run that leaves the pad and threads several gates, with the overlays on the onboard pane (green = the corners the policy is fed, cyan = the hand497 YOLO detections on the same frame). Both overlays if the detector installs; green only is acceptable if onnxruntime will not install. Record more attempts than the default (`-Attempts 6`, `-Seconds 40`) for both checkpoints, keep every file, and tell me which one or two look best and why (gates passed, how far it got, no static frames). Do not trim or edit the videos; I will cut them on the Mac.
+- Pull before anything else. If a clone of aigp-sim or aigp-perception already exists on this machine, run `git pull --ff-only` in each; the repos changed a lot after 22 Sep and stale copies will not have the recorder or the checkpoints. The ps1 also pulls, but confirm it did.
 
 ## Steps
 
 1. Authenticate to GitHub if needed (`gh auth login` or a credential helper); the repos are private.
 2. `git lfs install`, then `git clone https://github.com/bojro/aigp-sim.git D:\aigp-sim` (or another drive with ~5 GB free; the drone USD is 98 MB in LFS).
 3. Locate the Isaac venv python. Verify with `<python> -c "import isaaclab, isaaclab_tasks, skrl; print(skrl.__version__)"` (should print 1.4.x). If the venv is missing or broken, stop and report what you found before installing anything large.
-4. `cd D:\aigp-sim` then `.\scripts\windows\record_race_pov.ps1 -Python <that python>`. Watch for `SMOKE_RESULT=PASS`, then two recording runs. Keep the laptop on AC power and awake; each run is a few minutes on this GPU.
+4. `cd D:\aigp-sim`, `git pull --ff-only`, then `.\scripts\windows\record_race_pov.ps1 -Python <that python> -Attempts 6 -Seconds 40`. Watch for `SMOKE_RESULT=PASS`, then the two recording runs (race40drop under dropout, then race40 with perfect corners). Keep the laptop on AC power and awake; each run is a few minutes on this GPU.
 5. If a run fails, read the traceback, make the minimal fix, rerun that run only (`-SkipSmoke` once the smoke test has passed). Commit fixes to aigp-sim main and push.
 6. Look at one output video (open it) and confirm: two panes, left chase view, right onboard camera with green corners (and cyan hand497 detections if the detector ran), a status line, and the drone actually leaving the pad. A file that plays but shows a static scene means the skrl reset trap (see record_start.py's docstring).
 7. Copy the videos to the Mac: `scp -r <out dir> bojro@Bojros-MacBook-Air-2.local:~/dev/aigp-sim/paper/videos/race_pov` (the Mac was at 10.48.48.2 on this network on 26 Sep; use the IP if mDNS fails). If scp is not available, zip them and say where they are.
@@ -30,4 +31,4 @@ Produce videos of two trained racing policies flying in Isaac Sim, each frame sh
 - Which python/venv was used and its Isaac Sim / Isaac Lab / skrl versions.
 - The `SMOKE_RESULT=` line and every `RECORDED=` line, verbatim.
 - Every fix you had to make, as commit hashes.
-- Where the videos are, with sizes, and whether hand497 detected the simulated gates at all (the cyan count in the legend line).
+- Where the videos are, with sizes; which one or two look best and why (gates passed, seconds flown); and whether hand497 detected the simulated gates at all (the cyan count in the legend line).
