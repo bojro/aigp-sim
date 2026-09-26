@@ -54,7 +54,7 @@ The simulator is a fork of [Kousheek Chakraborty's `isaac_drone_racer`](https://
 
 ![Ten seconds of the classical fallback stack in Isaac: chase view above, the drone's own camera with detections below](paper/figures/stack_pov.gif)
 
-*Ten seconds of the stack in Isaac against a pessimistic sensor model (every gate detected, gate-shaped false positives, sticky corner dropout, latency, an unknown self-levelling gain), chase view above its own camera: staging in front of gate 4, settling, passing it and turning to gate 5 ([stack_pov.mp4](paper/videos/stack_pov.mp4), real time; the full run reached nine of the ten gates in 127 s before losing its position estimate). Sixty-four aircraft flew each configuration: the hover-and-turn after each gate took three-gate success from 84% to 95%; the gate-6 detour took that gate from 0 of 64 to 64 of 64. Section 7 of the paper has the full account, including its one flight, which hit the ceiling.*
+*Ten seconds of the stack in Isaac against a pessimistic sensor model (every gate detected, gate-shaped false positives, sticky corner dropout, latency, an unknown self-levelling gain), chase view above its own camera: staging in front of gate 4, settling, passing it and turning to gate 5 ([stack_pov.mp4](paper/videos/stack_pov.mp4), real time; the full run passed nine gates and crashed at 127 s). Sixty-four aircraft flew each configuration: the hover-and-turn after each gate took three-gate success from 84% to 95%; the gate-6 detour took that gate from 0 of 64 to 64 of 64. Section 7 of the paper has the full account, including its one flight, which hit the ceiling.*
 
 ## Documentation
 
@@ -162,9 +162,9 @@ All in `paper/videos/`, all Isaac Sim, all starting from the competition pad. Th
 
 | file | what it shows |
 |---|---|
-| [`race40drop_pov.mp4`](paper/videos/race40drop_pov.mp4) | the `race40drop` policy under measured corner dropout, 38 gates in 58 s, chase view above its own camera with the fed corners (green) and the real `hand497` detector's output (cyan). Recorded 26 September with `scripts/diag/record_race_pov.py` on an RTX 4060 laptop |
+| [`race40drop_pov.mp4`](paper/videos/race40drop_pov.mp4) | the `race40drop` policy under measured corner dropout, mean actions, 38 gates in 58 s, chase view above its own camera with the fed corners (green) and the real `hand497` detector's output (cyan, box confidence 0.4 and corner confidence 0.25, the flight thresholds). The best of eight attempts, recorded 26 September with `scripts/diag/record_race_pov.py` on an RTX 4060 laptop |
 | [`race_start_from_pad.mp4`](paper/videos/race_start_from_pad.mp4) | the 40 Hz policy taking off from the competition pad and through gate 1, 6.7 s, chase view only |
-| [`stack_pov.mp4`](paper/videos/stack_pov.mp4) | the classical fallback stack, nine of ten gates in 127 s, chase view above its own camera with the simulated detector's corners. Real time |
+| [`stack_pov.mp4`](paper/videos/stack_pov.mp4) | the classical fallback stack, nine gates and then a crash at 127 s, chase view above its own camera with the simulated detector's corners (green target, cyan other gates, red false positives). Real time |
 | [`stack_run_01.mp4`](paper/videos/stack_run_01.mp4), [`02`](paper/videos/stack_run_02.mp4), [`03`](paper/videos/stack_run_03.mp4) | three earlier attempts of the stack, chase view beside its own camera, 60 s each at twice real time |
 
 ![The racing policy taking off from the competition pad and through gate 1](paper/figures/race_start_from_pad.gif)

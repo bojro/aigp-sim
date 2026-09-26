@@ -33,3 +33,11 @@ Produce videos of two trained racing policies flying in Isaac Sim, each frame sh
 - The `SMOKE_RESULT=` line and every `RECORDED=` line, verbatim.
 - Every fix you had to make, as commit hashes.
 - Where the videos are, with sizes; which one or two look best and why (gates passed, seconds flown); and whether hand497 detected the simulated gates at all (the cyan count in the legend line).
+
+## What the 26 September run found
+
+The recordings came back the same day: `paper/videos/race40drop_pov.mp4` (the best of eight `race40drop` attempts, 38 gates) and `paper/videos/stack_pov.mp4` (the stack, nine gates then a crash at 127 s), both 640×720 with the chase view above the onboard camera, real time. Seven more `race40drop` attempts (7 to 17 gates), an 8 s `race40` clip and a 90 s stack run without a crash stayed on the laptop.
+
+* No native Isaac existed on the laptop and WSL2 cannot render (no NVIDIA Vulkan there). A native environment was built: conda Python 3.10, Isaac Sim 4.5, Isaac Lab 2.1, skrl 1.4.2.
+* NVIDIA driver 596.36 (the R590 branch) crashes `rtx.scenedb` when the renderer starts, on every Isaac version tried. Known bug, no workaround. Driver 581.80 works; keep it on that machine while recording.
+* The recorder needed fixes to run there: vertical layout instead of side by side, mean actions, the CUDA execution provider for the detector, a `cv2` scoping bug, the traceback printed before the app closes, 40 Hz by decimation from the training config, the camera at the real mount (12 cm forward, 2 cm right, 1.3 cm up, 20° up-tilt, near clip 35 cm so the airframe stays out of frame), reset under inference mode, the episode cap equal to `--seconds`, and EULA, import, stderr and live-log fixes in the PowerShell script. These are commits on the laptop's clone and are not on `origin/main` yet; the laptop's own README in its output folder has the full log.
