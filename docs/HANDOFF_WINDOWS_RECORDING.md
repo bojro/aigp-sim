@@ -2,7 +2,7 @@
 
 ## Goal
 
-Produce side-by-side videos (Isaac chase view | the drone's onboard camera with detections drawn) of two trained racing policies, and copy them to my Mac. Everything needed is in the private repo https://github.com/bojro/aigp-sim (GitHub account: bojro). The one-script path is `scripts\windows\record_race_pov.ps1`. Read its header and `scripts\diag\record_race_pov.py` before running anything.
+Produce videos of two trained racing policies flying in Isaac Sim, each frame showing the chase view beside the drone's onboard camera with two overlays: the corners the policy is fed (green) and the real hand497 detector's detections on the same rendered frame (cyan). Then copy them to my Mac. Everything needed is in the private repo https://github.com/bojro/aigp-sim (GitHub account: bojro). The one-script path is `scripts\windows\record_race_pov.ps1`. Read its header and `scripts\diag\record_race_pov.py` before running anything.
 
 ## Context you should know
 
@@ -13,6 +13,7 @@ Produce side-by-side videos (Isaac chase view | the drone's onboard camera with 
 - The recorder has never run on a live Isaac install (the pod it was written for is gone). Expect to fix small things: import paths, the tiled-camera key name, the skrl reset re-arm, imageio needing ffmpeg. Fix them in place, keep the fixes minimal, and commit them with a clear message. Do not rewrite the script.
 - Isaac's exit code is meaningless. The `RECORDED=` line printed by the recorder, and `SMOKE_RESULT=PASS` from the smoke test, are the results.
 - Do not touch anything to do with the drone, Betaflight, MSP, or the Code-Red-Cables/AI_GP repository. This task is simulation only.
+- The output the paper wants most is race40drop under the measured dropout (the ps1 runs it first); race40 with perfect corners is the comparison. A clip of race40drop completing several gates from the pad is the goal; if all three attempts crash early, say so rather than picking the best frames.
 
 ## Steps
 
@@ -22,7 +23,7 @@ Produce side-by-side videos (Isaac chase view | the drone's onboard camera with 
 4. `cd D:\aigp-sim` then `.\scripts\windows\record_race_pov.ps1 -Python <that python>`. Watch for `SMOKE_RESULT=PASS`, then two recording runs. Keep the laptop on AC power and awake; each run is a few minutes on this GPU.
 5. If a run fails, read the traceback, make the minimal fix, rerun that run only (`-SkipSmoke` once the smoke test has passed). Commit fixes to aigp-sim main and push.
 6. Look at one output video (open it) and confirm: two panes, left chase view, right onboard camera with green corners (and cyan hand497 detections if the detector ran), a status line, and the drone actually leaving the pad. A file that plays but shows a static scene means the skrl reset trap (see record_start.py's docstring).
-7. Copy the videos to the Mac: `scp -r <out dir> bojro@Bojros-MacBook-Air-2.local:~/dev/aigp-sim/paper/videos/race_pov` (the Mac was at 10.48.99.15 on this network on 23 Sep; use the IP if mDNS fails). If scp is not available, zip them and say where they are.
+7. Copy the videos to the Mac: `scp -r <out dir> bojro@Bojros-MacBook-Air-2.local:~/dev/aigp-sim/paper/videos/race_pov` (the Mac was at 10.48.48.2 on this network on 26 Sep; use the IP if mDNS fails). If scp is not available, zip them and say where they are.
 
 ## Report back
 
