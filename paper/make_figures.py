@@ -288,17 +288,4 @@ for n in ["course_overlay", "camera_fov", "stress_results", "retrain_curves", "b
     except ImportError:
         print("keeping committed", n + ".png (PyMuPDF not installed)")
 
-# 10. Video poster frames (extracted with OpenCV in a venv; see README) ----------------
-try:
-    if DARK: raise FileNotFoundError("light run only")
-    posters = [("poster_race_start_from_pad.jpg", "(a) race_start_from_pad.mp4: the 40 Hz racing policy lifts off the competition pad and takes gate 1"),
-               ("poster_race_best.jpg", "(b) race_best.mp4: an early chase-camera run, before the start fixes"),
-               ("poster_stack_run_02.jpg", "(c) stack_run_02.mp4: the classical stack, chase view (left) and its own camera with detections (right)")]
-    imgs = [load(os.path.join(OUT, p), 1280) for p, _ in posters]
-    fig, axs = plt.subplots(3, 1, figsize=(7.2, 3.9 + 3.9 + 2.2))
-    for ax, im, (_, tt) in zip(axs, imgs, posters):
-        ax.imshow(im); ax.set_title(tt, fontsize=8, loc="left"); ax.axis("off")
-    fig.tight_layout(pad=0.4); save(fig, "video_posters.png", vector=False)
-except FileNotFoundError as e:
-    print("skipping video posters:", e)
 print("done")

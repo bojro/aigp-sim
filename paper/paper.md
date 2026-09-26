@@ -221,7 +221,7 @@ Figure 17 shows the retrained chain's result. In Isaac, from the competition pad
 
 *Figure 17. The 40 Hz racing policy trained under corner dropout (`race40drop`, leg 35) flying the full course in Isaac from the competition pad; 36 of 64 aircraft completed the first lap. Left: every aircraft's path in blue, one aircraft's path coloured by height, black bars the gates and red arrows the required direction. Top right: height over the first lap against the 1.35 m gate centres and the 4.05 m upper opening of gate 9. Bottom right: when each gate was passed.*
 
-Figure 18 is the policy's own camera during a simulated run. Figures 19 and 20 are recordings: the takeoff from the competition pad that the start fixes of Section 5.5 made possible, and an earlier chase-camera run from before those fixes, kept for the flying itself rather than the outcome. They animate on GitHub; the PDF shows one frame of each with a link to the file.
+Figure 18 is the policy's own camera during a simulated run. Figures 19 and 20 are recordings: the takeoff from the competition pad that the start fixes of Section 5.5 made possible, and the final `race40drop` policy racing with its own camera view beside the chase view, the corners it is fed drawn over the frame together with what the real detector finds there. They animate on GitHub; the PDF shows one frame of each with a link to the file.
 
 ![](figures/race_contact_sheet.jpg)
 
@@ -231,9 +231,9 @@ Figure 18 is the policy's own camera during a simulated run. Figures 19 and 20 a
 
 *Figure 19. The 40 Hz racing policy starting on the floor 7.4 m before gate 1 and flying through it, in Isaac ([race_start_from_pad.mp4](https://github.com/bojro/aigp-sim/blob/main/paper/videos/race_start_from_pad.mp4), 6.7 s). Before the start-distribution fixes of Section 5.5 this takeoff succeeded in zero of 456 attempts; after them, 86.3% of pad starts pass gate 1.*
 
-![](figures/race_best.gif)
+![](figures/race40drop_pov.gif)
 
-*Figure 20. An early chase-camera recording of a racing checkpoint from before the start fixes ([race_best.mp4](https://github.com/bojro/aigp-sim/blob/main/paper/videos/race_best.mp4), 9.9 s). That checkpoint had not trained a takeoff from this position and the run does not complete the course; a recording of the final `race40drop` policy with its own camera view is still to be made.*
+*Figure 20. The `race40drop` policy racing in Isaac under the measured corner dropout, gates 22 to 29 of a run that passed 38 gates in 58 s from the pad ([race40drop_pov.mp4](https://github.com/bojro/aigp-sim/blob/main/paper/videos/race40drop_pov.mp4), real time; the GIF is ten seconds of it). Above: the chase view. Below: the drone's own camera, with the target gate's corners drawn in green exactly as the policy was fed them that step, latch, delay and dropout included, and in cyan every gate the real `hand497` detector finds on the same rendered frame with its box confidence. The detector was trained on photographs of real gates and never on renders, and it fires on Isaac's orange squares on most frames, usually on the gate the policy is flying at and often on the ones behind it.*
 
 ## 6. Measurements on the aircraft
 
@@ -332,7 +332,7 @@ Sixty-four aircraft flew each configuration from the competition pad. The gains 
 
 ![](figures/stack_pov.gif)
 
-*Figure 25. Eight seconds of the classical stack flying in Isaac ([stack_run_02.mp4](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_run_02.mp4), 60 s; runs [01](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_run_01.mp4) and [03](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_run_03.mp4) are the other two attempts). Above: Isaac's chase view. Below: the drone's own camera with the simulated detector's corners drawn, green for the target gate, cyan for other gates, red for false detections, and a status line of time, phase, gates passed, estimation error and time blind.*
+*Figure 25. Ten seconds of the classical stack flying in Isaac ([stack_pov.mp4](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_pov.mp4), real time, 127 s): staging in front of gate 4, settling, passing it and turning to gate 5. The full run reached nine of the ten gates before losing its position estimate. Above: Isaac's chase view. Below: the drone's own camera with the simulated detector's corners drawn, green for the target gate, cyan for other gates, red for false detections, and a status line of time, phase, gates passed, estimation error and time blind. Three earlier attempts, side by side at twice real time, are [stack_run_01](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_run_01.mp4), [02](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_run_02.mp4) and [03](https://github.com/bojro/aigp-sim/blob/main/paper/videos/stack_run_03.mp4).*
 
 ### 7.7 On the aircraft
 
