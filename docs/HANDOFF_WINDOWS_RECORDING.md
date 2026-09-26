@@ -25,7 +25,7 @@ Produce videos of two trained racing policies flying in Isaac Sim, each frame sh
 4. `cd D:\aigp-sim`, `git pull --ff-only`, then `.\scripts\windows\record_race_pov.ps1 -Python <that python> -Attempts 6 -Seconds 40`. Watch for `SMOKE_RESULT=PASS`, then the two recording runs (race40drop under dropout, then race40 with perfect corners). Keep the laptop on AC power and awake; each run is a few minutes on this GPU.
 5. If a run fails, read the traceback, make the minimal fix, rerun that run only (`-SkipSmoke` once the smoke test has passed). Commit fixes to aigp-sim main and push.
 6. Look at one output video (open it) and confirm: two panes, left chase view, right onboard camera with green corners (and cyan hand497 detections if the detector ran), a status line, and the drone actually leaving the pad. A file that plays but shows a static scene means the skrl reset trap (see record_start.py's docstring).
-7. Copy the videos to the Mac: `scp -r <out dir> bojro@Bojros-MacBook-Air-2.local:~/dev/aigp-sim/paper/videos/race_pov` (the Mac was at 10.48.48.2 on this network on 26 Sep; use the IP if mDNS fails). If scp is not available, zip them and say where they are.
+7. Zip the output directory and say where the zip is. Do not try to copy it to the Mac over the network; the Mac does not accept SSH or scp.
 
 ## Report back
 
