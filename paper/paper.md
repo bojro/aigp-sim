@@ -456,7 +456,7 @@ The organizers' MSP library and camera toolchain on the Jetson turned the adapte
 |---|---|
 | Simulator, plant, observation contract, PPO training, pod scripts | `bojro/aigp-sim` (`contract/`, `tasks/`, `dynamics/`, `utils/`, `scripts/`, `docs/`) |
 | Auto-labeller, hybrid labeller, dataset tools, training recipes, ONNX deployment, the shipped models | `bojro/aigp-perception` (`aigp_perception/`, `datasets/`, `train/`, `eval/`, `deploy/`, `models/`) |
-| On-site work: specification and facts, NumPy flight stack, bench tools, measurements, runners, research notes | `Code-Red-Cables/AI_GP` under `pq/` (private) |
+| On-site work: specification and facts, NumPy flight stack, bench tools, measurements, runners, research notes; the classical stack and its Isaac harness | `Code-Red-Cables/AI_GP` under `pq/` and `stack_sim/` (private, one branch since 27 September) |
 | The four eras before the physical qualifier | `bojro/AI_GP-archive`, sixteen branches (private) |
 | This paper, its figures and the videos | `bojro/aigp-sim/paper/` |
 

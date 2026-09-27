@@ -45,7 +45,7 @@ The simulator is a fork of [Kousheek Chakraborty's `isaac_drone_racer`](https://
 
 **Why we deferred the policy.** It had trained on perfect corners; the real detector left its observation intact 59% of the time. Its 1760 inputs had to match to the number, and three mismatches (gyro units, pitch sign, a 2.4× rate map) surfaced only in flight. It trained at 60 Hz on a 40 Hz link. It needs ACRO, where a fault means no self-levelling and a hand-flown abort. The first props-on attempt lasted 0.45 s, and each one risked one of four aircraft.
 
-**What replaced it.** A deterministic stack in ANGLE mode, built from `pq/flight` and a small decision layer, `stack_min`:
+**What replaced it.** A deterministic stack in ANGLE mode, built from `pq/flight` and a small decision layer, `stack_min` (`stack_sim/` in the flight repo):
 
 - Eight corners give a gate pose by planar PnP; gravity from the flight controller rejects the mirrored solution, and its attitude replaces PnP's rotation (0.09 m error at 8 m, against 2.12 m for the full solve).
 - Detections are matched to gates in metres; the closest two gates are 7.54 m apart.

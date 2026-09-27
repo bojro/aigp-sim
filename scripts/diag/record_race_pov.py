@@ -15,7 +15,7 @@ style as the stack recordings:
 A status line carries time, gates passed, speed and height.
 
 Built from scripts/diag/record_start.py (policy loading, pad starts, the
-skrl reset trap, baked-in speed-up) and the perception-sim branch's
+skrl reset trap, baked-in speed-up) and the flight repo's
 stack_sim/record_stack.py (side-by-side composition). Every episode is a
 competition-pad start. Written on 23 Sep 2026 after the training pod had
 gone away, so it has NOT been run on a live Isaac install yet; the RECORDED=
